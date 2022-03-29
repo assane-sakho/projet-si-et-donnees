@@ -53,7 +53,7 @@ services:
     volumes:
       - ./ml:/usr/src/ml
     ports:
-      - 7000:7000
+      - 5000:5000
     restart: always
     networks:
       - app-network
