@@ -1,6 +1,11 @@
 Cloned from https://github.com/sujaykundu777/mern-docker
 ___________________________________________
 
+git subtree push --prefix mern https://git.heroku.com/projet-si-et-donnees.git master
+git subtree push --prefix ml https://git.heroku.com/projet-si-et-donnees-ml.git master
+
+___________________________________________
+
 ## MERN-Docker - Starter for building MERN Apps using Docker
 
 ![MERN DOCKER diagram](https://github.com/sujaykundu777/mern-docker/blob/master/3-tier-diagram.png?raw=true)
