@@ -3,25 +3,26 @@ version: '3.9'
 services:
   server:
     build:
-      context: ./server
+      context: ./mern/server
       dockerfile: Dockerfile
-    image: myapp-server
-    container_name: myapp-node-server
+    image: mern-server
+    container_name: projet_si_et_donnes_mern_node_server
     command: npm run start
     volumes:
-      - ./server/:/usr/src/app
+      - ./mern/server/:/usr/src/app
       - /usr/src/app/node_modules
     ports:
       - "8080:8080"
     depends_on:
       - mongo
-    env_file: ./server/.env
+    env_file: ./mern/server/.env
     environment:
       - NODE_ENV=development
     networks:
       - app-network
   mongo:
     image: mongo:latest
+    container_name: projet_si_et_donnes_mern_mongo_db
     volumes:
       - data-volume:/data/db
     ports:
@@ -30,13 +31,13 @@ services:
       - app-network
   client:
     build:
-      context: ./client
+      context: ./mern/client
       dockerfile: Dockerfile
-    image: myapp-client
-    container_name: myapp-react-client
+    image: mern-client
+    container_name: projet_si_et_donnes_mern_react_client
     command: npm run start
     volumes:
-      - ./client/:/usr/app
+      - ./mern/client/:/usr/app
       - /usr/app/node_modules
     depends_on:
       - server
@@ -45,12 +46,12 @@ services:
     networks:
       - app-network
   ml:
-    container_name: myapp-ml
+    container_name: projet_si_et_donnes_ml
     build: 
-      context: ./machine-learning
+      context: ./ml
       dockerfile: Dockerfile
     volumes:
-      - ./machine-learning:/usr/src/machine-learning
+      - ./ml:/usr/src/ml
     ports:
       - 7000:7000
     restart: always
