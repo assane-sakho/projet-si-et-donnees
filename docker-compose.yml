@@ -44,7 +44,18 @@ services:
       - "3000:3000"
     networks:
       - app-network
-
+  ml:
+    container_name: myapp-ml
+    build: 
+      context: ./machine-learning
+      dockerfile: Dockerfile
+    volumes:
+      - ./machine-learning:/usr/src/machine-learning
+    ports:
+      - 7000:7000
+    restart: always
+    networks:
+      - app-network
 networks:
     app-network:
         driver: bridge
