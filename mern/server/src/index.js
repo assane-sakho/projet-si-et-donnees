@@ -15,7 +15,7 @@ const dirname = path.resolve();
 // Routes
 //const postRouter = require('./routes/post.router.js');
 
-const CLIENT_BUILD_PATH = path.join(dirname, "../../client/build");
+const CLIENT_BUILD_PATH = path.join(dirname, "../client/build");
 
 app.use(
   bodyParser.urlencoded({
