@@ -9,7 +9,7 @@ import request from "request"
 
 const app = express();
 const PORT = process.env.PORT || 8080;
-const ML_API_URL = process.env.ML_API_URL || 'http://172.24.0.3:5000/';
+const ML_API_URL = process.env.ML_API_URL || 'http://projet_si_et_donnes_ml:5000/';
 const dirname = path.resolve();
 
 // Routes
