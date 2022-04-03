@@ -1,10 +1,6 @@
-from flask import Flask, flash, request, redirect, url_for
-import os
-
+from flask import Flask, request
 app = Flask(__name__)
-port = int(os.environ.get('PORT', 5000))
-
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+# app.run(host='0.0.0.0', port=8080,debug=True)
 
 @app.route('/')
 def hello():
@@ -25,9 +21,3 @@ def guess_cloth_type():
         # if file and allowed_file(file.filename):
             # return "t-shirt"
         return "t-shirt"
-
-def allowed_file(filename):     
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=port, debug=True)
