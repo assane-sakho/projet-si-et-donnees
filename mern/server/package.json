@@ -1,12 +1,13 @@
 {
   "name": "server",
   "version": "1.0.1",
+  "type": "module",
   "description": "Myapp Server built using node, express",
   "main": "src/index.js",
   "scripts": {
     "build": "webpack-cli --config webpack/webpack.dev.js",
     "start": "npm run build && nodemon dist/main.js",
-    "dev": "webpack-dev-server --open --config webpack/webpack.dev.js",
+    "dev": "nodemon -L --inspect=0.0.0.0 src/index.js",
     "test": "jest --config jest.config.json"
   },
   "author": "Sujay Kundu",
@@ -28,6 +29,7 @@
     "nodemon": "^2.0.6",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
+    "request": "^2.88.2",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.1.1",
     "util": "^0.12.3",

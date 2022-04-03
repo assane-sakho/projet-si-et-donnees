@@ -1,5 +1,5 @@
 import { useState, useEffect, React } from 'react';
-import { Button, Form, Alert, Accordion } from 'react-bootstrap';
+import { Button, Form, Alert, Accordion, Spinner } from 'react-bootstrap';
 import axios from "axios"
 
 function AlertInstruction() {
@@ -25,14 +25,22 @@ function AlertInstruction() {
 }
 
 function GuessClothType() {
-    const [picture, setPicture] = useState(null);
+    const [picture, setPicture] = useState(undefined);
+    const [type, setType] = useState('');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        const data = new FormData()
-        data.append('file', picture)
-        axios.post("/api/guess_cloth_type", data, { 
+        if (picture !== undefined) {
+            setLoading(true);
+            const data = new FormData()
 
-       })
+            data.append('file', picture)
+            axios.post("/api/guess_cloth_type", data)
+                .then((res) => {
+                    setLoading(false);
+                    setType(res.data)
+                });
+        }
 
     }, [picture]);
 
@@ -42,9 +50,18 @@ function GuessClothType() {
             <Accordion.Body>
                 <AlertInstruction />
 
-                <Form.Group controlId="guessClothTypeInput" className="mb-3">
+                <Form.Group controlId="guessClothTypeInput" className="mb-3 mt-3">
                     <Form.Control type="file" accept=".png,.jpg,.jpeg" onChange={(e) => setPicture(e.target.files[0])} />
                 </Form.Group>
+                {loading ? <Spinner animation="border" /> : <></>}
+                {type !== '' ?
+
+                    <p>
+                        Le type de vêtement correspond à <b className="text-success">{type}.</b>
+                    </p>
+                    : <></>
+                }
+
             </Accordion.Body>
         </Accordion.Item>
     );
