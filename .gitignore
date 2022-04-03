@@ -4,3 +4,4 @@ client/src/compiled/
 /.history
 # dist folder
 dist
+mern/client/.eslintcache
