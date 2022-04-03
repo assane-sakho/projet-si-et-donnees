@@ -1,25 +1,24 @@
 import React from 'react';
 import './App.css';
-import logo from './logo.svg';
+import { Container } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './Header';
+import Footer from './Footer';
+import Features from './Features';
+import axios from "axios"
 
 function App() {
+  axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Get Started with mern-docker
-        </a>
-      </header>
-    </div>
+    <Container fluid className="bg-grey">
+      <Header />
+
+      <Features />
+
+      <Footer />
+    </Container >
+
   );
 }
 

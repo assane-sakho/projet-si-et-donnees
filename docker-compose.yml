@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     image: mern-server
     container_name: projet_si_et_donnes_mern_node_server
-    command: npm run start
+    command: npm run dev
     volumes:
       - ./mern/server/:/usr/src/app
       - /usr/src/app/node_modules
@@ -51,12 +51,13 @@ services:
       context: ./ml
       dockerfile: Dockerfile
     volumes:
-      - ./ml:/usr/src/ml
+      - ./ml:/app
     ports:
       - 5000:5000
     restart: always
     networks:
       - app-network
+
 networks:
     app-network:
         driver: bridge
