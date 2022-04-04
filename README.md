@@ -16,8 +16,7 @@ ___________________________________________
 
 Run the app using :
 
-`$ docker-compose up --build --remove-orphans`
-
+`$ docker-compose build --remove-orphans`
 `$ docker-compose up`
 
 ___________________________________________

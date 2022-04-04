@@ -23,8 +23,11 @@ services:
   mongo:
     image: mongo:latest
     container_name: projet_si_et_donnes_mern_mongo_db
+    environment:
+      MONGO_INITDB_DATABASE: clother
     volumes:
-      - data-volume:/data/db
+      - ./mern/db/data-volume:/data/db
+      - ./mern/db/cloths.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     ports:
       - "27017:27017"
     networks:
