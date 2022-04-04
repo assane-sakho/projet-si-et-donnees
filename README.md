@@ -1,70 +1,24 @@
-Cloned from https://github.com/sujaykundu777/mern-docker
-___________________________________________
 
-git subtree add --prefix mern https://github.com/assane-sakho/projet-si-et-donnees master --squash
-git subtree add --prefix ml https://github.com/assane-sakho/projet-si-et-donnees ml --squash
+___________________________________________
+**Create subtree for Heroku :**
+
+`git subtree add --prefix mern https://github.com/assane-sakho/projet-si-et-donnees master --squash` 
+
+`git subtree add --prefix ml https://github.com/assane-sakho/projet-si-et-donnees ml --squash`  
+
 ---
+**Push changes to Heroku :**
 
-git subtree push --prefix mern https://git.heroku.com/projet-si-et-donnees.git master
-git subtree push --prefix ml https://git.heroku.com/projet-si-et-donnees-ml.git master
+`git subtree push --prefix mern https://git.heroku.com/projet-si-et-donnees.git master`  
+`git subtree push --prefix ml https://git.heroku.com/projet-si-et-donnees-ml.git master`  
 
 ___________________________________________
-
-## MERN-Docker - Starter for building MERN Apps using Docker
-
-![MERN DOCKER diagram](https://github.com/sujaykundu777/mern-docker/blob/master/3-tier-diagram.png?raw=true)
-### Prerequisites:
-
-You must have Docker Installed in your System !
-
-### How to run the App :
-
-Article - ![Tutorial](https://dev.to/sujaykundu777/utilizing-the-power-of-docker-while-building-mern-apps-using-mern-docker-4olb)
-
-##### In Development Mode :
-
-First copy the content of **docker-compose-dev.yml** to **docker-compose.yml**
-
-and also copy the content of **server/src/index.dev.js** to **server/src/index.js**
 
 Run the app using :
 
 `$ docker-compose up --build --remove-orphans`
 
-or
+`$ docker-compose up`
 
-`$ docker-compose up -d`
-
-Above command will start the services on (-d) detach mode (similar like running the app in background)
-
-Then you can check the status of the containers by running:
-
-`$ docker ps`
-
-The App should be App :
-
-visit client : http://localhost:3000
-
-visit server : http://localhost:8080
-
-To check the status of the running containers :
-
-`docker-compose ps`
-
-##### In Production Mode :
-
-First copy the content of **docker-compose-prod.yml** to **docker-compose.yml**
-
-and also copy the content of **server/src/index.prod.js** to **server/src/index.js**
-
-Run the app using :
-
-` $ docker-compose up --build -remove-orphans`
-
-The App should be up at http://localhost:8080
-
-### Build the image for server :
-docker build -t myapp-server:1 .
-docker images
-docker run --name "myapp-server" -p 80:8080 myapp-server:1
-docker ps
+___________________________________________
+Mern app cloned from https://github.com/sujaykundu777/mern-docker
