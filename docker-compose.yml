@@ -1,53 +1,53 @@
 version: '3.9'
 
 services:
-  server:
-    build:
-      context: ./mern/server
-      dockerfile: Dockerfile
-    image: mern-server
-    container_name: projet_si_et_donnes_mern_node_server
-    command: npm run dev
-    volumes:
-      - ./mern/server/:/usr/src/app
-      - /usr/src/app/node_modules
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mongo
-    env_file: ./mern/server/.env
-    environment:
-      - NODE_ENV=development
-    networks:
-      - app-network
-  mongo:
-    image: mongo:latest
-    container_name: projet_si_et_donnes_mern_mongo_db
-    environment:
-      MONGO_INITDB_DATABASE: clother
-    volumes:
-      - ./mern/db/data-volume:/data/db
-      - ./mern/db/cloths.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-    ports:
-      - "27017:27017"
-    networks:
-      - app-network
-  client:
-    build:
-      context: ./mern/client
-      dockerfile: Dockerfile
-    image: mern-client
-    container_name: projet_si_et_donnes_mern_react_client
-    command: npm run start
-    volumes:
-      - ./mern/client/:/usr/app
-      - /usr/app/node_modules
-    depends_on:
-      - server
-    ports:
-      - "3000:3000"
-    networks:
-      - app-network
+  # server:
+  #   build:
+  #     context: ./mern/server
+  #     dockerfile: Dockerfile
+  #   image: mern-server
+  #   container_name: projet_si_et_donnes_mern_node_server
+  #   command: npm run dev
+  #   volumes:
+  #     - ./mern/server/:/usr/src/app
+  #     - /usr/src/app/node_modules
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - mongo
+  #   env_file: ./mern/server/.env
+  #   environment:
+  #     - NODE_ENV=development
+  #   networks:
+  #     - app-network
+  # mongo:
+  #   image: mongo:latest
+  #   container_name: projet_si_et_donnes_mern_mongo_db
+  #   environment:
+  #     MONGO_INITDB_DATABASE: clother
+  #   volumes:
+  #     - ./mern/db/data-volume:/data/db
+  #     - ./mern/db/cloths.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+  #   ports:
+  #     - "27017:27017"
+  #   networks:
+  #     - app-network
+  # client:
+  #   build:
+  #     context: ./mern/client
+  #     dockerfile: Dockerfile
+  #   image: mern-client
+  #   container_name: projet_si_et_donnes_mern_react_client
+  #   command: npm run start
+  #   volumes:
+  #     - ./mern/client/:/usr/app
+  #     - /usr/app/node_modules
+  #   depends_on:
+  #     - server
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - app-network
   ml:
     container_name: projet_si_et_donnes_ml
     build: 
@@ -55,6 +55,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./ml:/app
+      - D:\data06-04\data\Lacoste:/data
     ports:
       - 5000:5000
     restart: always

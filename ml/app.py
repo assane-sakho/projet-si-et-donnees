@@ -1,10 +1,12 @@
 from flask import Flask, request
+from model import tt
+
 app = Flask(__name__)
 # app.run(host='0.0.0.0', port=8080,debug=True)
 
 @app.route('/')
 def hello():
-    return 'Hello, World!'
+    return tt() 
 
 @app.route("/guessClotheType/", methods=['POST'])
 def guess_cloth_type():

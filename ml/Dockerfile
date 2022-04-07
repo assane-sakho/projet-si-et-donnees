@@ -1,14 +1,17 @@
-# Example of Dockerfile
+# Specify your base image
+FROM tensorflow/tensorflow
 
-FROM python:3.8.5-alpine3.12
+RUN apt-get update
+RUN apt-get install ffmpeg libsm6 libxext6  -y
 
+# create a work directory
+RUN mkdir /app
+# navigate to this work directory
 WORKDIR /app
-
-EXPOSE $PORT
-ENV FLASK_APP=waitress_server.py
-
+#Copy all files
 COPY . /app
+RUN python -m pip install --upgrade pip
+# Install dependencies
 RUN pip install -r requirements.txt
-
-ENTRYPOINT [ "flask"]
-CMD [ "run", "--host", "0.0.0.0" ]
+# Run
+CMD ["python","waitress_server.py"]
