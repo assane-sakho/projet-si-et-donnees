@@ -7,12 +7,12 @@ function AlertInstruction() {
 
     if (show) {
         return (
-            <Alert variant="info" onClose={() => setShow(false)} dismissible>
+            <Alert variant="warning" onClose={() => setShow(false)} dismissible>
                 <Alert.Heading>
                     Instruction
                 </Alert.Heading>
                 <p>
-                    Envoyez une photo d'un vêtement pour que l'algorithme de Machine Learning détecte son type (pull, t-shirt, robe, etc).
+                    Envoyez une photo d'un vêtement pour que l'algorithme de Machine Learning estime son prix.
                 </p>
             </Alert>
         );
@@ -24,7 +24,7 @@ function AlertInstruction() {
     );
 }
 
-function GuessClothType() {
+function GuessClothPrice() {
     const [picture, setPicture] = useState(undefined);
     const [type, setType] = useState('');
     const [loading, setLoading] = useState(false);
@@ -45,12 +45,12 @@ function GuessClothType() {
     }, [picture]);
 
     return (
-        <Accordion.Item eventKey="0">
-            <Accordion.Header>#1 : Deviner le type de vêtement</Accordion.Header>
+        <Accordion.Item eventKey="2">
+            <Accordion.Header>#3 : Estimer le prix d'un vêtement</Accordion.Header>
             <Accordion.Body>
                 <AlertInstruction />
 
-                <Form.Group controlId="guessClothTypeInput" className="mb-3 mt-3">
+                <Form.Group controlId="guessClothPriceInput" className="mb-3 mt-3">
                     <Form.Control type="file" accept=".png,.jpg,.jpeg" onChange={(e) => setPicture(e.target.files[0])} />
                 </Form.Group>
                 {loading ? <Spinner animation="border" /> : <></>}
@@ -67,4 +67,4 @@ function GuessClothType() {
     );
 }
 
-export default GuessClothType;
+export default GuessClothPrice;
