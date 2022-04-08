@@ -45,7 +45,7 @@ app.get("/", function (req, res) {
 });
 
 app.post('/api/cloth_type/train', function (req, res) {
-	return axios.post(`${ML_API_URL}/cloth_type/train/`)
+	return axios.post(`${ML_API_URL}/cloth_type/train/${req.query?.forceTrain === 'true' ? '?forceTrain=True' : ''}`)
 				.catch((err) => {
 					// console.log(err)
 					res.status(500).send(err);

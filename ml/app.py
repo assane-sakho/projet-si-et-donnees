@@ -11,7 +11,7 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 def hello():
     return "Hello world"
 
-@app.route('/cloth_type/train/')
+@app.route('/cloth_type/train/', methods=['POST'])
 def train():
     force_train = request.args.get('forceTrain', default = False, type = bool)
     return guess_cloth_category_model.train(force_train)

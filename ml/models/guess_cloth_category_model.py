@@ -1,10 +1,5 @@
 import cv2
 import numpy as np
-import requests
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-import sys
-import datetime
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
