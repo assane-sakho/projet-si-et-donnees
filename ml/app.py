@@ -1,8 +1,11 @@
+import os
 from flask import Flask, request
 from models import guess_cloth_category_model
 
 app = Flask(__name__)
-# app.run(host='0.0.0.0', port=8080,debug=True)
+#app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)),debug=True)
+
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 @app.route('/')
 def hello():
@@ -10,7 +13,8 @@ def hello():
 
 @app.route('/cloth_type/train/')
 def train():
-    return guess_cloth_category_model.train()
+    force_train = request.args.get('forceTrain', default = False, type = bool)
+    return guess_cloth_category_model.train(force_train)
 
 @app.route("/cloth_type/predict/", methods=['POST'])
 def predict():
@@ -22,27 +26,11 @@ def predict():
         flash('No selected file')
         return redirect(request.url)
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(UPLOAD_FOLDER, filename))
-        return f'Uploaded {file.filename}'
+        return guess_cloth_category_model.predict(file)
     return 'File is not allowed!'
 
-def test():  
-    if request.method == 'POST':
-       
-        if 'file' not in request.files:
-            print('No file part')
-            return 'No file part', 500
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            print('No selected file')
-            return 'No selected file', 50
-        if file and allowed_file(file.filename):
-            print('predict')
-            return guess_cloth_category_model.predict(file)
-
+def allowed_file(filename):     
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)

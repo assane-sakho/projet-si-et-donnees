@@ -60,12 +60,22 @@ app.post('/api/cloth_type/predict', function (req, res) {
 
 	const uploadStream = (file) => {
 		var pass = PassThrough()
-		const form = new FormData();
+		const formData = new FormData();
 		
-		form.append('flask_file_field', pass, file.originalFilename);
-		form.submit(`${ML_API_URL}/cloth_type/predict/`, (err, res) => {
-			console.error(res);
-			res.resume();
+		formData.append('flask_file_field', pass, file.originalFilename);
+		formData.submit(`${ML_API_URL}/cloth_type/predict/`, (err, r) => {
+			r.resume();
+			var result = '';
+			r.on('readable', () => {
+				var tmp = r.read();
+				if(tmp != undefined)
+				{
+					result += tmp;
+				}
+			})
+			r.on('end', () => {
+				res.send(result);
+			})
 		  });
 		return pass;
 	  };
@@ -75,7 +85,7 @@ app.post('/api/cloth_type/predict', function (req, res) {
 	  });
 
 	  form.parse(req, (err, fields, files) => {
-		res.json('Success!');
+		//res.json('Success!');
 	  });
 })
 
