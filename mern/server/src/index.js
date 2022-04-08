@@ -6,6 +6,8 @@ import path from 'path';
 import db from './config/mongodb.config.js';
 import axios from "axios"
 import FormData from 'form-data';
+import formidable from 'formidable';
+import { PassThrough } from 'stream';
 
 // import postRouter from './routes/post.router';
 
@@ -19,14 +21,17 @@ const dirname = path.resolve();
 
 const CLIENT_BUILD_PATH = path.join(dirname, "../client/build");
 
-app.use(fileUpload());
+// app.use(fileUpload());
 
-app.use(
-  bodyParser.urlencoded({
-    extended: true
-  })
-);
-app.use(bodyParser.json());
+// app.use(
+// 	bodyParser.urlencoded({
+// 	extended: true
+// 	})
+// );
+// app.use(bodyParser.json());
+
+app.use(express.json());
+app.use(express.urlencoded());
 
 //  Route for client
 app.use(express.static(CLIENT_BUILD_PATH));
@@ -36,30 +41,46 @@ app.use(express.static(CLIENT_BUILD_PATH));
 
 // Server React Client
 app.get("/", function (req, res) {
-  res.sendFile(path.join(CLIENT_BUILD_PATH, "index.html"));
+  	res.sendFile(path.join(CLIENT_BUILD_PATH, "index.html"));
 });
 
-app.post('/api/guess_cloth_type', function (req, res) {
-  const file = req.files.file;
-  let d = new FormData();
-  d.append('file', file.data, {
-    contentType: file.mimetype,
-    filename: file.name
-  });
+app.post('/api/cloth_type/train', function (req, res) {
+	return axios.post(`${ML_API_URL}/cloth_type/train/`)
+				.catch((err) => {
+					// console.log(err)
+					res.status(500).send(err);
+				}).then((response) => {
+					console.log('/api/cloth_type/train')
+					console.log(response.data)
+					res.send(response.data);
+				});
+})
 
-  return axios.post(`${ML_API_URL}/guessClotheType/`, d, {
-    headers: { 'Content-Type': 'multipart/form-data' }
-  }).catch((err) => {
-    console.log(err)
-    res.status(500).send(err);
-  }).then((response) => {
-    console.log('pye')
-    res.send(response.data);
-  });
+app.post('/api/cloth_type/predict', function (req, res) {
+
+	const uploadStream = (file) => {
+		var pass = PassThrough()
+		const form = new FormData();
+		
+		form.append('flask_file_field', pass, file.originalFilename);
+		form.submit(`${ML_API_URL}/cloth_type/predict/`, (err, res) => {
+			console.error(res);
+			res.resume();
+		  });
+		return pass;
+	  };
+
+	const form =  formidable({
+		fileWriteStreamHandler: uploadStream
+	  });
+
+	  form.parse(req, (err, fields, files) => {
+		res.json('Success!');
+	  });
 })
 
 app.listen(PORT, function () {
-  console.log(`Server Listening on ${PORT}`);
+  	console.log(`Server Listening on ${PORT}`);
 });
 
 export default app;

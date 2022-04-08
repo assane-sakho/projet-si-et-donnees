@@ -35,7 +35,7 @@ function GuessClothType() {
             const data = new FormData()
 
             data.append('file', picture)
-            axios.post("/api/guess_cloth_type", data)
+            axios.post("/api/cloth_type/predict", data)
                 .then((res) => {
                     setLoading(false);
                     setType(res.data)

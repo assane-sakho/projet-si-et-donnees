@@ -10,3 +10,4 @@ waitress
 opencv-python
 matplotlib
 scipy
+joblib
