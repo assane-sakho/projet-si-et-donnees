@@ -8,10 +8,10 @@ import Features from './Features';
 import axios from "axios"
 
 function App() {
-  // if(process.env.REACT_APP_API_URL != undefined)
-  // {
-  //   axios.defaults.baseURL = REACT_APP_API_URL;
-  // }
+  if(process.env.REACT_APP_API_URL != undefined)
+  {
+    axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+  }
 
   return (
     <Container fluid className="bg-grey">
