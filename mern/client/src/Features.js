@@ -8,7 +8,7 @@ function Features() {
     return (
         <Row className="mt-5 mb-5">
             <Col md={{ span: 6, offset: 3 }}>
-                <Accordion defaultActiveKey={'0'}>
+                <Accordion defaultActiveKey={'1'}>
                     <GuessClothCategory />
                     <GuessClothInfos />
                     <GuessClothPrice />
