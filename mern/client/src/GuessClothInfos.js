@@ -28,20 +28,26 @@ function GuessClothInfos() {
     const [picture, setPicture] = useState(undefined);
     const [file, setFile] = useState(undefined);
     const [type, setType] = useState('');
+    const [color, setColor] = useState('');
+    const [brand, setBrand] = useState('');
+    const [kind, setKind] = useState('');
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (picture !== undefined) {
-            setLoading(true);
+            // setLoading(true);
             setFile(URL.createObjectURL(picture));
-            const data = new FormData()
+            setColor('#9f1d35');
+            setBrand('Adidas');
+            setKind('Cuir');
+            // const data = new FormData()
 
-            data.append('file', picture)
-            axios.post("/api/guess_cloth_type", data)
-                .then((res) => {
-                    setLoading(false);
-                    setType(res.data)
-                });
+            // data.append('file', picture)
+            // axios.post("/api/guess_cloth_type", data)
+            //     .then((res) => {
+            //         setLoading(false);
+            //         setType(res.data)
+            //     });
         }
 
     }, [picture]);
@@ -71,8 +77,8 @@ function GuessClothInfos() {
                                 alt="First slide"
                                 />
                                 <Carousel.Caption>
-                                <h5>First slide label</h5>
-                                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                <h5>Pantalon</h5>
+                                <p>Noir.</p>
                                 </Carousel.Caption>
                             </Carousel.Item>
                             <Carousel.Item>
