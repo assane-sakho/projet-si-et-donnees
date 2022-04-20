@@ -44,26 +44,116 @@ app.get("/", function (req, res) {
   	res.sendFile(path.join(CLIENT_BUILD_PATH, "index.html"));
 });
 
-app.post('/api/cloth_type/train', function (req, res) {
-	return axios.post(`${ML_API_URL}/cloth_type/train/${req.query?.forceTrain === 'true' ? '?forceTrain=True' : ''}`)
+app.post('/api/cloth_category/train', function (req, res) {
+	return axios.post(`${ML_API_URL}/cloth_category/train/${req.query?.forceTrain === 'true' ? '?forceTrain=True' : ''}`)
 				.catch((err) => {
 					// console.log(err)
 					res.status(500).send(err);
 				}).then((response) => {
-					console.log('/api/cloth_type/train')
+					console.log('/api/cloth_category/train')
 					console.log(response.data)
 					res.send(response.data);
 				});
 })
 
-app.post('/api/cloth_type/predict', function (req, res) {
+app.post('/api/cloth_category/predict', function (req, res) {
 
 	const uploadStream = (file) => {
 		var pass = PassThrough()
 		const formData = new FormData();
 		
 		formData.append('flask_file_field', pass, file.originalFilename);
-		formData.submit(`${ML_API_URL}/cloth_type/predict/`, (err, r) => {
+		formData.submit(`${ML_API_URL}/cloth_category/predict/`, (err, r) => {
+			r.resume();
+			var result = '';
+			r.on('readable', () => {
+				var tmp = r.read();
+				if(tmp != undefined)
+				{
+					result += tmp;
+				}
+			})
+			r.on('end', () => {
+				res.send(result);
+			})
+		  });
+		return pass;
+	  };
+
+	const form =  formidable({
+		fileWriteStreamHandler: uploadStream
+	  });
+
+	  form.parse(req, (err, fields, files) => {
+		//res.json('Success!');
+	  });
+})
+
+app.post('/api/cloth_color/train', function (req, res) {
+	return axios.post(`${ML_API_URL}/cloth_color/train/${req.query?.forceTrain === 'true' ? '?forceTrain=True' : ''}`)
+				.catch((err) => {
+					// console.log(err)
+					res.status(500).send(err);
+				}).then((response) => {
+					console.log('/api/cloth_color/train')
+					console.log(response.data)
+					res.send(response.data);
+				});
+})
+
+app.post('/api/cloth_color/predict', function (req, res) {
+
+	const uploadStream = (file) => {
+		var pass = PassThrough()
+		const formData = new FormData();
+		
+		formData.append('flask_file_field', pass, file.originalFilename);
+		formData.submit(`${ML_API_URL}/cloth_color/predict`, (err, r) => {
+			r.resume();
+			var result = '';
+			r.on('readable', () => {
+				var tmp = r.read();
+				if(tmp != undefined)
+				{
+					result += tmp;
+				}
+			})
+			r.on('end', () => {
+				res.send(result);
+			})
+		  });
+		return pass;
+	  };
+
+	const form =  formidable({
+		fileWriteStreamHandler: uploadStream
+	  });
+
+	  form.parse(req, (err, fields, files) => {
+		//res.json('Success!');
+	  });
+})
+
+app.post('/api/cloth_brand/train', function (req, res) {
+	return axios.post(`${ML_API_URL}/cloth_brand/train/${req.query?.forceTrain === 'true' ? '?forceTrain=True' : ''}`)
+				.catch((err) => {
+					// console.log(err)
+					res.status(500).send(err);
+				}).then((response) => {
+					console.log('/api/cloth_brand/train')
+					console.log(response.data)
+					res.send(response.data);
+				});
+})
+
+app.post('/api/cloth_brand/predict', function (req, res) {
+
+	const uploadStream = (file) => {
+		var pass = PassThrough()
+		const formData = new FormData();
+		
+		formData.append('flask_file_field', pass, file.originalFilename);
+		formData.submit(`${ML_API_URL}/cloth_brand/predict`, (err, r) => {
 			r.resume();
 			var result = '';
 			r.on('readable', () => {

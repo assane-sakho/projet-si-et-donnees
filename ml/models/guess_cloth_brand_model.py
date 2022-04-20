@@ -6,8 +6,8 @@ from tensorflow.keras import layers
 from joblib import dump, load
 import os.path
 
-dumped_model_path = 'dumped_models/guess_cloth_category_model.joblib'
-dumped_model_class_name_path = 'dumped_models/guess_cloth_category_class_name.joblib'
+dumped_model_path = 'dumped_models/guess_cloth_brand_model.joblib'
+dumped_model_class_name_path = 'dumped_models/guess_cloth_brand_class_name.joblib'
 
 '''
     Check if the model is already dumped
@@ -19,8 +19,9 @@ def is_model_dumped():
 '''
     Train the model
 '''
-def train(force_train = False):
-        return ''
+def train_brand(force_train = False):
+    return 'ok'
 
-def predict(file_to_predict):
-    return 'cuir, rouge'
+
+def predict_brand(file_to_predict):
+    return "Lacoste"

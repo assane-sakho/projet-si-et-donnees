@@ -19,7 +19,7 @@ def is_model_dumped():
 '''
     Train the model
 '''
-def train(force_train = False):
+def train_category(force_train = False):
     if is_model_dumped() == False or force_train == True :  # check if the model is already trained
         data_dir = '/data'  # directory used to store images
         batch_size = 3
@@ -93,7 +93,7 @@ def train(force_train = False):
     return 'ok'
 
 
-def predict(file_to_predict):
+def predict_category(file_to_predict):
     if is_model_dumped():
         img = cv2.imdecode(np.fromstring(file_to_predict.read(),np.uint8), cv2.IMREAD_UNCHANGED)
         img = cv2.resize(img, (224, 224))
