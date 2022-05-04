@@ -9,3 +9,7 @@ mern/client/.eslintcache
 mern/db/data-volume/
 ml/.coverage
 ml/logs/
+kaggle/mask_rcnn_coco.h5
+kaggle/fashion*/
+
+kaggle/submission.csv
